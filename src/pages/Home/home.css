@@ -1,0 +1,42 @@
+.home-addbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-header {
+  font-family: "Dancing Script", cursive !important;
+  text-align: center;
+  margin: 8px 8px 12px !important;
+  font-size: 3em !important;
+  border-radius: 8px !important;
+  border: 1px solid white !important;
+  padding: 8px !important;
+  font-style: italic;
+  background: grey;
+  color: white !important;
+}
+
+
+.home-presentation {
+    margin: 14px 8px  !important;
+    font-size: 1.3em !important;
+    border-radius: 8px !important;
+    border: 1px solid white !important;
+    padding: 8px !important;
+    font-style: italic;
+    background: grey;
+    color: white !important;
+}
+
+.home-like-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.home-like-button span {
+  border-radius: 1px solid white;
+  background:#2B2B29 ;
+  font-size: 1.5em;
+}

@@ -1,0 +1,73 @@
+.categories {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.categories-header {
+  font-family: "Dancing Script", cursive !important;
+  text-align: center;
+  text-transform: capitalize !important;
+  font-size: 4em !important;
+  border-radius: 8px !important;
+  border: 1px solid white !important;
+  padding: 8px !important;
+  font-style: italic;
+  background: grey;
+}
+.categories-subheader {
+  font-size: 2.5rem !important;
+  color: white !important;
+}
+.categories-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: grey !important;
+  border-radius: 12px;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.categories-dropdown {
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  align-items: center !important;
+}
+
+.products {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-menuitem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.badge {
+  background-color:darkred;
+  margin-left: 5px;
+  color: white;
+  font-weight: bold;
+    border-radius: 100%;
+    padding: 2px 4px;
+}
+
+
+.active {
+  border: 1px solid darkred;
+  background-color: #2b2b29 !important;
+  color: white !important;
+}
