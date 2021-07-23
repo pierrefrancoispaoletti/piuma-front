@@ -50,7 +50,7 @@ const ProductItem = ({
         display: visible ? "" : user ? "" : "none",
         border:
           decodeURI(history.location.hash.replace("#", "")) === _id
-            ? "3px solid darkred"
+            ? "8px solid darkred"
             : "",
       }}
     >
