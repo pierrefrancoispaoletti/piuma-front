@@ -34,22 +34,9 @@
 }
 
 .price {
-  position: relative;
   align-self: baseline;
   font-weight: bold;
   display: inline-block;
-  padding: 3px;
-  border: 1px solid #2b2b29;
-  background: var(--backgroundColor);
-  border-radius: 8px;
-}
-
-.price-second {
-  position: absolute;
-  bottom: 7px;
-  right: 10px ;
-  font-weight: bold;
-  display: block;
   padding: 3px;
   border: 1px solid #2b2b29;
   background: var(--backgroundColor);
@@ -65,6 +52,10 @@
   border-radius: 100%;
 }
 
+.region-wrapper {
+  display: flex;
+  justify-content:  space-between;
+}
 .region {
   font-weight: bold;
   display: inline-block;

@@ -94,14 +94,18 @@ const ProductItem = ({
             <small>€</small>
           </span>
         )}
-        {type === "cave" && name.toLowerCase() !== "verre de vin" && (
-          <span className="price-second">
-            {`Sur place : ${price.toFixed(2)}`}
-            <small>€</small>
-          </span>
-        )}
       </div>
-      {region && <div className="region">{region}</div>}
+      {region && (
+        <div className="region-wrapper">
+          <div className="region">{region}</div>
+          {type === "cave" && name.toLowerCase() !== "verre de vin" && (
+            <span className="region">
+              {`Sur place : ${price.toFixed(2)}`}
+              <small>€</small>
+            </span>
+          )}
+        </div>
+      )}
       {description && (
         <Translator
           cacheProvider={cacheProvider}
