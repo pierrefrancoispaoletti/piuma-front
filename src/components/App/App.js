@@ -138,7 +138,9 @@ const App = () => {
               <Home
                 user={user}
                 event={event}
+                products={products}
                 setEvent={setEvent}
+                setSelectedCategory={setSelectedCategory}
                 setOpenLoginModal={setOpenLoginModal}
                 setOpenAddEventModal={setOpenAddEventModal}
                 setOpenEditEventModal={setOpenEditEventModal}

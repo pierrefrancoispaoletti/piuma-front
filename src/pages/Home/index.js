@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import {
-  faEdit,
   faPlus,
   faThumbsUp,
   faTrashAlt,
@@ -12,13 +11,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Header } from "semantic-ui-react";
 import { $SERVER, tokenName } from "../../_const/_const";
 import "./home.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import categories from "../../datas/categories";
+import { Link } from "react-router-dom";
 
 const Home = ({
   user,
   event,
   setEvent,
   setOpenAddEventModal,
-  setOpenEditEventModal,
+  setSelectedCategory,
+  products,
   setOpenLoginModal,
 }) => {
   const [loading, setLoading] = useState(false);
@@ -32,6 +36,39 @@ const Home = ({
       localStorage.removeItem(`${tokenName}-event`);
     }
   }, [event]);
+
+  const shuffle = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array.slice(0, 6);
+  };
+
+  const findProductsImages = () => {
+    const productsWithImages = products?.filter((product) => product.image);
+
+    return shuffle(productsWithImages);
+  };
+
+  const findCategory = (slug) => {
+    const categoryToFind = categories.find((category) => category.slug === slug);
+
+
+    return categoryToFind;
+  };
 
   const handleAddLike = () => {
     if (!vote) {
@@ -176,7 +213,36 @@ const Home = ({
       )}
       {event && Object.keys(event).length === 0 && (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img height="280px" src="./assets/images/logo.png" alt="logo RDR" />
+          {products &&
+            (findProductsImages()?.length > 0 ? (
+              <Carousel
+                showArrows={true}
+                showThumbs={false}
+                infiniteLoop={true}
+              >
+                {findProductsImages().map((product) => (
+                  <div>
+                    <img
+                      style={{ width: "100%" }}
+                      src={
+                        `data:${product?.image?.contentType};base64,` +
+                        arrayBufferToBase64(product.image?.data?.data)
+                      }
+                      alt={product.name}
+                    />
+                    <Link to={`/categories/${findCategory(product.type).slug}`} onClick={() => setSelectedCategory(findCategory(product.type))}>
+                      <p className="legend">{product.name}</p>
+                    </Link>
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <img
+                height="280px"
+                src="./assets/images/logo.png"
+                alt="logo RDR"
+              />
+            ))}
         </div>
       )}
     </Container>
