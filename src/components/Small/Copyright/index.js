@@ -43,7 +43,7 @@ const Copyright = ({
         </a>
         <a
           target="_blank"
-          href="https://www.instagram.com/"
+          href="https://www.instagram.com/a_piuma_/?hl=fr"
           rel="noreferrer"
         >
           <FontAwesomeIcon

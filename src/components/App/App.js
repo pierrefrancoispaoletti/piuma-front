@@ -104,6 +104,7 @@ const App = () => {
         </Transition>
         <CategoriesSidebar
           setActiveMenu={setActiveMenu}
+          activeMenu={activeMenu}
           setDropdownValue={setDropdownValue}
           selectedCategory={selectedCategory}
           setFilteredProducts={setFilteredProducts}
@@ -141,6 +142,7 @@ const App = () => {
                 products={products}
                 setEvent={setEvent}
                 setSelectedCategory={setSelectedCategory}
+                setActiveMenu={setActiveMenu}
                 setOpenLoginModal={setOpenLoginModal}
                 setOpenAddEventModal={setOpenAddEventModal}
                 setOpenEditEventModal={setOpenEditEventModal}

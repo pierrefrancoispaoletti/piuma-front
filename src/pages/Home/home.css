@@ -40,3 +40,35 @@
   background:#2B2B29 ;
   font-size: 1.5em;
 }
+
+.legend {
+  font-size: 1.3em !important;
+}
+
+.legend.price {
+  bottom: 20px !important;
+  font-size: 1.2rem !important;
+  align-self: baseline !important;
+  font-weight: bold !important;
+  color: black !important; 
+  display: inline-block !important;
+  padding: 3px !important;
+  border: 1px solid #2b2b29 !important;
+  background: var(--backgroundColor) !important;
+  border-radius: 8px !important;
+}
+
+
+.choisen {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  border: 1px solid transparent;
+  background: pink;
+  border-radius: 100%;
+  font-size: 4em;
+}
+
+.carousel-status  {
+  display: none;
+}

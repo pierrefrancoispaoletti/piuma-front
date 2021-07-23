@@ -38,6 +38,7 @@ const Categories = ({
   setOpenUpdateImageModal,
 }) => {
   const category = useParams();
+
   const { name, subCategories, details } = selectedCategory;
   const [loading, setLoading] = useState(false);
 
@@ -174,18 +175,14 @@ const Categories = ({
           </Button>
         </div>
       )}
-      <Header className="categories-header" style={{ color: "white", textDecoration: "underline" }} as="h2">
-        {name}
+      <Header
+        className="categories-header"
+        style={{ color: "white" }}
+        as="h2"
+      >
+        <span style={{textDecoration: "underline"}}>{name}</span>
+        {details && <p style={{ color: "black", fontSize:"0.5em", textDecoration: "" }}>{details}</p>}
       </Header>
-      {details && (
-        <Header
-          className="categories-header"
-          style={{ color: "white" }}
-          as="p"
-        >
-          {details}
-        </Header>
-      )}
       {activeMenu && (
         <Header
           className="categories-header"

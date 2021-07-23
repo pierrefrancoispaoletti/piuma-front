@@ -6,7 +6,7 @@ import "./categoriessidebar.css";
 const CategoriesSidebar = ({
   selectedCategory,
   setActiveMenu,
-  setDropdownValue,
+  activeMenu,
   products,
   setFilteredProducts,
   setSelectedCategory,
@@ -17,20 +17,25 @@ const CategoriesSidebar = ({
   useEffect(() => {
     if (selectedCategory) {
       setActiveMenu("");
-      setDropdownValue("");
       setFilteredProducts([]);
       setFilteredProducts(
-        products.filter((p) => p.type === selectedCategory.slug)
+        products.filter(
+          (p) => p.type === selectedCategory.slug && p.category === activeMenu
+        )
       );
     }
-    if (selectedCategory.slug === "cave") {
-      setActiveMenu("rouges");
-    }
-    if (selectedCategory.slug === "spuntinu") {
-      setActiveMenu("salés");
-    }
-    if (selectedCategory.slug === "epicerie") {
-      setActiveMenu("salés-p");
+    if (
+      selectedCategory.slug === "cave" ||
+      selectedCategory.slug === "spuntinu" ||
+      selectedCategory.slug === "epicerie"
+    ) {
+      if (
+        selectedCategory.subCategories.find((subc) => subc.slug === activeMenu)
+      ) {
+        setActiveMenu(activeMenu);
+      } else {
+        setActiveMenu(selectedCategory.subCategories[0].slug);
+      }
     }
   }, [selectedCategory]);
   return (
@@ -51,7 +56,11 @@ const CategoriesSidebar = ({
             <Link to={`/`} onClick={() => setSelectedCategory({})}>
               <Menu.Item className="categories-sidebar-item">
                 <Menu.Header>
-                  <img width="100px" src="./assets/images/logo.png" alt="logo piuma" />
+                  <img
+                    width="100px"
+                    src="./assets/images/logo.png"
+                    alt="logo piuma"
+                  />
                 </Menu.Header>
               </Menu.Item>
             </Link>

@@ -5,6 +5,7 @@ import React from "react";
 import { Header } from "semantic-ui-react";
 import "./productitem.css";
 import { GOOGLE_API_KEY } from "../../../_const/_const";
+import { useHistory } from "react-router-dom";
 
 const ProductItem = ({
   product,
@@ -23,6 +24,8 @@ const ProductItem = ({
   setOpenImageModal,
   setSelectedProduct,
 }) => {
+  const history = useHistory();
+
   const userLang = navigator.language || navigator.userLanguage;
 
   const cacheProvider = {
@@ -41,8 +44,15 @@ const ProductItem = ({
 
   return (
     <div
+      id={name}
       className="productitem"
-      style={{ display: visible ? "" : user ? "" : "none" }}
+      style={{
+        display: visible ? "" : user ? "" : "none",
+        border:
+          decodeURI(history.location.hash.replace("#", "")) === name
+            ? "3px solid darkred"
+            : "",
+      }}
     >
       <div className="productitem-header">
         <Header
@@ -69,7 +79,7 @@ const ProductItem = ({
               }}
             />
           )}
-          {choice ? (
+          {choice && (
             <FontAwesomeIcon
               className="bosschoice alvp__icon"
               icon={faHeartCircle}
@@ -79,8 +89,6 @@ const ProductItem = ({
               }}
               size="2x"
             />
-          ) : (
-            ""
           )}
         </Header>
         {type === "cave" && name.toLowerCase() !== "verre de vin" ? (

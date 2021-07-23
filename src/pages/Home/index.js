@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import {
+  faHeartCircle,
   faPlus,
   faThumbsUp,
   faTrashAlt,
@@ -15,6 +16,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import categories from "../../datas/categories";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 const Home = ({
   user,
@@ -22,6 +24,7 @@ const Home = ({
   setEvent,
   setOpenAddEventModal,
   setSelectedCategory,
+  setActiveMenu,
   products,
   setOpenLoginModal,
 }) => {
@@ -64,8 +67,9 @@ const Home = ({
   };
 
   const findCategory = (slug) => {
-    const categoryToFind = categories.find((category) => category.slug === slug);
-
+    const categoryToFind = categories.find(
+      (category) => category.slug === slug
+    );
 
     return categoryToFind;
   };
@@ -222,17 +226,37 @@ const Home = ({
               >
                 {findProductsImages().map((product) => (
                   <div>
+                    {product.choice && (
+                      <FontAwesomeIcon
+                        className="choisen alvp__icon"
+                        icon={faHeartCircle}
+                        style={{
+                          "--fa-primary-color": "darkred",
+                          "--fa-secondary-color": "transparent",
+                        }}
+                        size="2x"
+                      />
+                    )}
                     <img
-                      style={{ width: "100%" }}
                       src={
                         `data:${product?.image?.contentType};base64,` +
                         arrayBufferToBase64(product.image?.data?.data)
                       }
                       alt={product.name}
                     />
-                    <Link to={`/categories/${findCategory(product.type).slug}`} onClick={() => setSelectedCategory(findCategory(product.type))}>
+                    <HashLink
+                      smooth
+                      to={`/categories/${findCategory(product.type).slug}#${product.name}`}
+                      onClick={() => {
+                        setSelectedCategory(findCategory(product.type));
+                        setActiveMenu(product.category);
+                      }}
+                    >
                       <p className="legend">{product.name}</p>
-                    </Link>
+                      <p className="legend price">
+                        {product.price} <small>€</small>
+                      </p>
+                    </HashLink>
                   </div>
                 ))}
               </Carousel>
