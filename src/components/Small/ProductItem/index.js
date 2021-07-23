@@ -44,12 +44,12 @@ const ProductItem = ({
 
   return (
     <div
-      id={name}
+      id={_id}
       className="productitem"
       style={{
         display: visible ? "" : user ? "" : "none",
         border:
-          decodeURI(history.location.hash.replace("#", "")) === name
+          decodeURI(history.location.hash.replace("#", "")) === _id
             ? "3px solid darkred"
             : "",
       }}
@@ -71,7 +71,7 @@ const ProductItem = ({
           {name}
           {image && (
             <FontAwesomeIcon
-              style={{ color: "white", margin: 8 }}
+              style={{ color: "white", marginLeft: 8 }}
               icon={faSearch}
               onClick={() => {
                 setSelectedProduct(product);

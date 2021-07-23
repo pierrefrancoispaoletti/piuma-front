@@ -246,7 +246,7 @@ const Home = ({
                     />
                     <HashLink
                       smooth
-                      to={`/categories/${findCategory(product.type).slug}#${product.name}`}
+                      to={`/categories/${findCategory(product.type).slug}#${product._id}`}
                       onClick={() => {
                         setSelectedCategory(findCategory(product.type));
                         setActiveMenu(product.category);

@@ -27,7 +27,7 @@ const Copyright = ({
       <div className="footer__icons">
         <a
           target="_blank"
-          href="https://www.facebook.com/Ind%C3%A8-Piuma-104822281341917"
+          href="fb://profile/104822281341917"
           rel="noreferrer"
         >
           <FontAwesomeIcon

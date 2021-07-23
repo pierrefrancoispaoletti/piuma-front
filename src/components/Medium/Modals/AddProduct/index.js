@@ -43,8 +43,8 @@ const AddProductModal = ({
   const setImage = async (e) => {
     Resizer.imageFileResizer(
       e.target.files[0],
-      200,
-      200,
+      400,
+      400,
       "JPEG",
       100,
       0,
