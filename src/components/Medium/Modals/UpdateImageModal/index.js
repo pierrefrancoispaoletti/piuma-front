@@ -158,8 +158,8 @@ const UpdateImageModal = ({
               onChange={(e) => {
                 Resizer.imageFileResizer(
                   e.target.files[0],
-                  500,
-                  500,
+                  200,
+                  200,
                   "JPEG",
                   100,
                   0,

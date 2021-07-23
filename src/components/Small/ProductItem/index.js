@@ -71,7 +71,7 @@ const ProductItem = ({
           )}
           {choice ? (
             <FontAwesomeIcon
-                className="bosschoice alvp__icon"
+              className="bosschoice alvp__icon"
               icon={faHeartCircle}
               style={{
                 "--fa-primary-color": "darkred",
@@ -83,17 +83,30 @@ const ProductItem = ({
             ""
           )}
         </Header>
-        <span className="price">
-          {price.toFixed(2)}
-          <small>€</small>
-        </span>
+        {type === "cave" && name.toLowerCase() !== "verre de vin" ? (
+          <span className="price">
+            {price.toFixed(2) - 7}
+            <small>€</small>
+          </span>
+        ) : (
+          <span className="price">
+            {price.toFixed(2)}
+            <small>€</small>
+          </span>
+        )}
+        {type === "cave" && name.toLowerCase() !== "verre de vin" && (
+          <span className="price-second">
+            {`Sur place : ${price.toFixed(2)}`}
+            <small>€</small>
+          </span>
+        )}
       </div>
       {region && <div className="region">{region}</div>}
       {description && (
         <Translator
           cacheProvider={cacheProvider}
           from="fr"
-          to={userLang.substr(0,2)}
+          to={userLang.substr(0, 2)}
           googleApiKey={GOOGLE_API_KEY}
         >
           <p className="description">

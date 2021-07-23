@@ -136,8 +136,9 @@ const categories = [
     ],
   },
   {
-    name: "U Spuntinu",
+    name: "Assiettes à composer",
     slug: "spuntinu",
+    details: "À partir de 18h",
     icon: (
       <FontAwesomeIcon
         size="4x"
