@@ -1,0 +1,95 @@
+.cart {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.cart-description {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cart-header {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-total {
+  font-size: 1.5em;
+  font-weight: bold;
+  border: 3px solid black;
+  padding: 8px;
+}
+
+.cart-product {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 12px 0;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.3em;
+  background-color: grey;
+  position: relative;
+}
+
+.cart-product-title {
+  margin-bottom: 8px;
+  font-size: 1.2em !important;
+  margin-right: 5px !important;
+  text-transform: uppercase !important;
+}
+
+.cart-product-amount {
+  margin: 8px 0;
+}
+.counter {
+  display: inline-block;
+  margin: 0 12px;
+  border: 1px solid #2b2b29;
+  background: var(--backgroundColor);
+  border-radius: 8px;
+  padding: 6px;
+  line-height: 1.5;
+  letter-spacing: 1.5;
+  font-weight: bold;
+}
+
+.cart-product-description {
+  font-weight: bold;
+  font-family: "Josefin Sans", sans-serif;
+  padding: 6px;
+  line-height: 1.5;
+  letter-spacing: 1.5;
+  border: 1px solid #2b2b29;
+  background: var(--backgroundColor);
+  border-radius: 8px;
+}
+
+.cart-product-unitprice {
+  align-self: baseline;
+  font-weight: bold;
+  display: inline-block;
+  padding: 3px;
+  border: 1px solid #2b2b29;
+  background: var(--backgroundColor);
+  border-radius: 8px;
+}
+
+.cart-product-subtotal {
+  align-self: baseline;
+  font-weight: bold;
+  display: inline-block;
+  padding: 3px;
+  border: 1px solid #2b2b29;
+  background: var(--backgroundColor);
+  border-radius: 8px;
+}

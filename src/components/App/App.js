@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router";
 import { Divider, Message, Transition } from "semantic-ui-react";
+import Cart from "../../pages/Cart";
 import Categories from "../../pages/Categories";
 import Home from "../../pages/Home";
 import { $SERVER } from "../../_const/_const";
@@ -38,6 +39,11 @@ const App = () => {
   const [event, setEvent] = useState({});
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [eventLoading, setEventLoading] = useState(false);
+
+  const [order, setOrder] = useState([]);
+
+  const [cart, setCart] = useState([]);
+
 
   useEffect(() => {
     if (Object.keys(appMessage).length !== 0) {
@@ -114,6 +120,8 @@ const App = () => {
           setSelectedCategory={setSelectedCategory}
         >
           <TopAppBar
+            cart={cart}
+            setCart={setCart}
             setSelectedCategory={setSelectedCategory}
             loading={loading}
             user={user}
@@ -182,6 +190,8 @@ const App = () => {
                 filteredProducts={filteredProducts}
                 setFilteredProducts={setFilteredProducts}
                 user={user}
+                setCart={setCart}
+                cart={cart}
                 selectedCategory={selectedCategory}
                 activeMenu={activeMenu}
                 setActiveMenu={setActiveMenu}
@@ -196,6 +206,9 @@ const App = () => {
                 setOpenEditProductModal={setOpenEditProductModal}
                 setSelectedProduct={setSelectedProduct}
               />
+            </Route>
+            <Route path="/panier">
+              <Cart cart={cart} setCart={setCart} order={order} setOrder={setOrder} />
             </Route>
           </Switch>
           <Divider />

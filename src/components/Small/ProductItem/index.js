@@ -1,11 +1,17 @@
-import { faHeartCircle, faSearch } from "@fortawesome/pro-duotone-svg-icons";
+import {
+  faCartArrowDown,
+  faCartPlus,
+  faHeartCircle,
+  faSearch,
+} from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Translator, Translate } from "react-auto-translate";
 import React from "react";
-import { Header } from "semantic-ui-react";
+import { Button, Header } from "semantic-ui-react";
 import "./productitem.css";
 import { GOOGLE_API_KEY } from "../../../_const/_const";
 import { useHistory } from "react-router-dom";
+import { addToCart, removeFromCart } from "../../../utils/functions";
 
 const ProductItem = ({
   product,
@@ -16,14 +22,16 @@ const ProductItem = ({
   description,
   price,
   category,
-  subCategory,
   choice,
   visible,
   image,
   user,
   setOpenImageModal,
   setSelectedProduct,
+  setCart,
+  cart,
 }) => {
+
   const history = useHistory();
 
   const userLang = navigator.language || navigator.userLanguage;
@@ -41,7 +49,6 @@ const ProductItem = ({
       localStorage.setItem("translations", JSON.stringify(existing));
     },
   };
-
   return (
     <div
       id={_id}
@@ -91,6 +98,31 @@ const ProductItem = ({
             />
           )}
         </Header>
+        {type === "spuntinu" && user !== "isAdmin" && (
+          <Button
+            className="addtocart"
+            icon
+            circular
+            color="orange"
+            onClick={() => addToCart(setCart, cart, product)}
+          >
+            <FontAwesomeIcon size="2x" icon={faCartPlus} />
+            <span className="itemcounter">
+              {cart.filter((p) => p._id === _id).length}
+            </span>
+          </Button>
+        )}
+        {type === "spuntinu"  && user !== "isAdmin" && (
+          <Button
+            className="removefromcart"
+            icon
+            circular
+            color="red"
+            onClick={() => removeFromCart(setCart, cart, _id)}
+          >
+            <FontAwesomeIcon size="2x" icon={faCartArrowDown} />
+          </Button>
+        )}
         {type === "cave" && name.toLowerCase() !== "verre de vin" ? (
           <span className="price">
             {price.toFixed(2) - 7}

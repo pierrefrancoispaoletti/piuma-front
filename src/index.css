@@ -18,3 +18,9 @@ code {
   border: "" !important;
   background: white !important;
 }
+
+
+.column {
+  padding: 0 !important;
+  margin: 0 !important;
+}

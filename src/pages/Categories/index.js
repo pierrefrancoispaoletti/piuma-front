@@ -36,6 +36,8 @@ const Categories = ({
   setOpenEditProductModal,
   setOpenImageModal,
   setOpenUpdateImageModal,
+  setCart,
+  cart,
 }) => {
   const category = useParams();
 
@@ -245,6 +247,8 @@ const Categories = ({
                 user={user}
                 setOpenImageModal={setOpenImageModal}
                 setSelectedProduct={setSelectedProduct}
+                setCart={setCart}
+                cart={cart}
               />
             </>
           ))}

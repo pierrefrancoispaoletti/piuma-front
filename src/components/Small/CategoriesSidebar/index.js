@@ -37,7 +37,6 @@ const CategoriesSidebar = ({
         setActiveMenu(selectedCategory.subCategories[0].slug);
       }
     } else {
-      console.log("ici");
       setFilteredProducts(
         products.filter((p) => p.type === selectedCategory.slug)
       );

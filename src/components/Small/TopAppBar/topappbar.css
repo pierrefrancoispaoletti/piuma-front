@@ -1,8 +1,27 @@
 .topappbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 8px 8px;
-    border-bottom: 1px solid black;
-    background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 8px 8px;
+  border-bottom: 1px solid black;
+  background: white;
+}
+.badge {
+  background-color: darkred;
+  margin-left: 5px;
+  color: white;
+  font-weight: bold;
+  border-radius: 100%;
+  padding: 2px 4px;
+}
+
+.cartamount {
+  display: inline-block;
+  position: absolute;
+  top: 92px;
+  right: 12px;
+  font-size: 1.1em;
+  padding: 8px;
+  color: orange;
+  font-weight: bold;
 }

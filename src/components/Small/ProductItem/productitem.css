@@ -79,3 +79,26 @@
   background: var(--backgroundColor);
   border-radius: 8px;
 }
+
+.addtocart {
+  position: absolute;
+  top: -40px;
+  left: -30px;
+}
+
+.removefromcart {
+  position: absolute;
+  top: 17px;
+  left: -30px;
+}
+
+.itemcounter {
+  position: absolute;
+  display: inline-block;
+  padding: 5px;
+  top: 13px;
+  left: 55px;
+  border-radius: 50px;
+  z-index: 200;
+  background-color: red;
+}
