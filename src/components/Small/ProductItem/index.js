@@ -9,7 +9,7 @@ import { Translator, Translate } from "react-auto-translate";
 import React from "react";
 import { Button, Header } from "semantic-ui-react";
 import "./productitem.css";
-import { GOOGLE_API_KEY } from "../../../_const/_const";
+import { GOOGLE_API_KEY, showShop } from "../../../_const/_const";
 import { useHistory } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../../utils/functions";
 
@@ -98,7 +98,7 @@ const ProductItem = ({
             />
           )}
         </Header>
-        {type === "spuntinu" && user !== "isAdmin" && (
+        {showShop && type === "spuntinu" && user !== "isAdmin" && (
           <Button
             className="addtocart"
             icon
@@ -112,7 +112,7 @@ const ProductItem = ({
             </span>
           </Button>
         )}
-        {type === "spuntinu"  && user !== "isAdmin" && (
+        {showShop && type === "spuntinu"  && user !== "isAdmin" && (
           <Button
             className="removefromcart"
             icon

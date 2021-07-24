@@ -15,7 +15,6 @@ import Login from "../Medium/Modals/Login";
 import UpdateImageModal from "../Medium/Modals/UpdateImageModal";
 import CategoriesSidebar from "../Small/CategoriesSidebar";
 import Copyright from "../Small/Copyright";
-import Loader from "../Small/Loader";
 import TopAppBar from "../Small/TopAppBar";
 import "./App.css";
 

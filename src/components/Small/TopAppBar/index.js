@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Dropdown } from "semantic-ui-react";
 import { getCartAmount } from "../../../utils/functions";
+import { showShop } from "../../../_const/_const";
 import "./topappbar.css";
 
 const TopAppBar = ({
@@ -48,31 +49,33 @@ const TopAppBar = ({
         >
           <FontAwesomeIcon size="2x" icon={faBars} />
         </Button>
-        <Link to="/panier">
-          <Button
-            disabled={loading}
-            loading={loading}
-            color={"orange"}
-            icon
-            circular
-            onClick={() => console.log("cart clicked")}
-          >
-            <span
-              style={{ position: "relative" }}
-              className="fa-layers fa-2x fa-fw"
+        {showShop && (
+          <Link to="/panier">
+            <Button
+              disabled={loading}
+              loading={loading}
+              color={"orange"}
+              icon
+              circular
+              onClick={() => console.log("cart clicked")}
             >
-              <FontAwesomeIcon icon={faShoppingBasket} />
               <span
-                style={{ position: "absolute", top: "-23px", right: "-12px" }}
-                className="fa-layers-top-right fa-layers-counter fa-2x"
+                style={{ position: "relative" }}
+                className="fa-layers fa-2x fa-fw"
               >
-                {cart.length}
+                <FontAwesomeIcon icon={faShoppingBasket} />
+                <span
+                  style={{ position: "absolute", top: "-23px", right: "-12px" }}
+                  className="fa-layers-top-right fa-layers-counter fa-2x"
+                >
+                  {cart.length}
+                </span>
               </span>
-            </span>
-          </Button>
-        </Link>
+            </Button>
+          </Link>
+        )}
       </div>
-      {getCartAmount(cart) !== 0 && (
+      {showShop && getCartAmount(cart) !== 0 && (
         <span className="cartamount">
           Montant dans votre panier : {getCartAmount(cart).toFixed(2)}
           <small>€</small>
