@@ -1,22 +1,27 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router";
 import { Divider, Message, Transition } from "semantic-ui-react";
 import Cart from "../../pages/Cart";
 import Categories from "../../pages/Categories";
 import Home from "../../pages/Home";
-import { $SERVER } from "../../_const/_const";
+import { $SERVER, stripePublic } from "../../_const/_const";
 import AddEventModal from "../Medium/Modals/AddEvent";
 import AddProductModal from "../Medium/Modals/AddProduct";
 import EditProductModal from "../Medium/Modals/EditProduct";
 import ImageModal from "../Medium/Modals/ImageModal";
 import Login from "../Medium/Modals/Login";
+import PaymentModal from "../Medium/Modals/PaymentModal";
 import UpdateImageModal from "../Medium/Modals/UpdateImageModal";
 import CategoriesSidebar from "../Small/CategoriesSidebar";
 import Copyright from "../Small/Copyright";
 import TopAppBar from "../Small/TopAppBar";
 import "./App.css";
+
+const stripePromise = loadStripe(stripePublic);
 
 const App = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -43,6 +48,7 @@ const App = () => {
 
   const [cart, setCart] = useState([]);
 
+  const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
   useEffect(() => {
     if (Object.keys(appMessage).length !== 0) {
@@ -207,7 +213,23 @@ const App = () => {
               />
             </Route>
             <Route path="/panier">
-              <Cart cart={cart} setCart={setCart} order={order} setOrder={setOrder} />
+              <Cart
+                setOpenPaymentModal={setOpenPaymentModal}
+                cart={cart}
+                setCart={setCart}
+                order={order}
+                setOrder={setOrder}
+              />
+              <Elements stripe={stripePromise}>
+                <PaymentModal
+                  setOpenPaymentModal={setOpenPaymentModal}
+                  openPaymentModal={openPaymentModal}
+                  setOrder={setOrder}
+                  setCart={setCart}
+                  cart={cart}
+                  order={order}
+                />
+              </Elements>
             </Route>
           </Switch>
           <Divider />

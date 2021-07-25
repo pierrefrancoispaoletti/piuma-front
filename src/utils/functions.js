@@ -13,7 +13,8 @@ export const getCartAmount = (cart = []) => {
 };
 
 export const addToCart = (setCart, CurrentCart = [] , currentProduct = {}) => {
-  setCart([...CurrentCart, currentProduct]);
+  const {image, ...newCurrentProduct } = currentProduct
+  setCart([...CurrentCart, newCurrentProduct]);
 };
 
 export const removeFromCart = (setCart, CurrentCart = [], productId = "") => {

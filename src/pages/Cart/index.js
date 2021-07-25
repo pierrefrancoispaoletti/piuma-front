@@ -11,7 +11,7 @@ import {
 
 import "./cart.css";
 
-const Cart = ({ cart, setCart, order, setOrder }) => {
+const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
   const reducedCart = cart.reduce(
     (product, { _id }) => ((product[_id] = (product[_id] || 0) + 1), product),
     {}
@@ -39,7 +39,6 @@ const Cart = ({ cart, setCart, order, setOrder }) => {
     setOrder([...newOrder]);
   };
 
-  console.log(order);
   return (
     <Container className="cart">
       <Header className="categories-header" style={{ color: "white" }} as="h2">
@@ -53,7 +52,12 @@ const Cart = ({ cart, setCart, order, setOrder }) => {
               Total: {getCartAmount(cart).toFixed(2)} <small>€</small>
             </span>
           </div>
-          <Button color="blue" size="huge">
+          <Button
+            color="blue"
+            size="large"
+            onClick={() => setOpenPaymentModal(true)}
+            disabled={getCartAmount(cart).toFixed(2) === "0.00"}
+          >
             Commander
           </Button>
         </div>
@@ -107,7 +111,13 @@ const Cart = ({ cart, setCart, order, setOrder }) => {
                         step={50}
                         min={300}
                         max={1000}
-                        value={findProductWithId(order, p.id)?.weight ||0}
+                        value={
+                          findProductWithId(order, p.id)?.weight < 300
+                            ? 300
+                            : findProductWithId(order, p.id)?.weight > 1000
+                            ? 1000
+                            : findProductWithId(order, p.id)?.weight
+                        }
                       />{" "}
                       grammes
                     </label>
@@ -135,7 +145,12 @@ const Cart = ({ cart, setCart, order, setOrder }) => {
               Total: {getCartAmount(cart).toFixed(2)} <small>€</small>
             </span>
           </div>
-          <Button color="blue" size="huge">
+          <Button
+            color="blue"
+            size="large"
+            disabled={getCartAmount(cart).toFixed(2) === "0.00"}
+            onClick={() => setOpenPaymentModal(true)}
+          >
             Commander
           </Button>
         </div>
