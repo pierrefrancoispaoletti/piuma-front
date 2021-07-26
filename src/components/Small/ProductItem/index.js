@@ -1,5 +1,4 @@
 import {
-  faCartArrowDown,
   faCartPlus,
   faHeartCircle,
   faSearch,
@@ -11,7 +10,7 @@ import { Button, Header } from "semantic-ui-react";
 import "./productitem.css";
 import { GOOGLE_API_KEY, showShop } from "../../../_const/_const";
 import { useHistory } from "react-router-dom";
-import { addToCart, removeFromCart } from "../../../utils/functions";
+import { addToCart } from "../../../utils/functions";
 
 const ProductItem = ({
   product,
@@ -31,7 +30,6 @@ const ProductItem = ({
   setCart,
   cart,
 }) => {
-
   const history = useHistory();
 
   const userLang = navigator.language || navigator.userLanguage;
@@ -112,6 +110,7 @@ const ProductItem = ({
             </span>
           </Button>
         )}
+        {/*         
         {showShop && type === "spuntinu"  && user !== "isAdmin" && (
           <Button
             className="removefromcart"
@@ -122,7 +121,7 @@ const ProductItem = ({
           >
             <FontAwesomeIcon size="2x" icon={faCartArrowDown} />
           </Button>
-        )}
+        )} */}
         {type === "cave" && name.toLowerCase() !== "verre de vin" ? (
           <span className="price">
             {price.toFixed(2) - 7}

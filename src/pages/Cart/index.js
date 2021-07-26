@@ -28,7 +28,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
   const setProductWeight = (e) => {
     let foundProductObject = order.find((p) => p._id === e.target.name);
 
-    foundProductObject["weight"] = Number(e.target.value);
+    foundProductObject["weight"] = Number(e.target.value) || 0;
 
     let index = order.findIndex((i) => i._id === e.target.name);
 
@@ -55,8 +55,11 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
           <Button
             color="blue"
             size="large"
+            disabled={
+              getCartAmount(cart).toFixed(2) === "0.00" ||
+              cart.some((item) => "weight" in item && !item.weight)
+            }
             onClick={() => setOpenPaymentModal(true)}
-            disabled={getCartAmount(cart).toFixed(2) === "0.00"}
           >
             Commander
           </Button>
@@ -101,27 +104,32 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
               <div className="cart-product-subtotal">
                 {region.toLowerCase() === "au kilo" ? (
                   <>
-                    <label>
-                      Poids désiré{" "}
-                      <input
-                        required
-                        name={p.id}
-                        onChange={(e) => setProductWeight(e)}
-                        type="number"
-                        step={50}
-                        min={300}
-                        max={1000}
-                        value={
-                          findProductWithId(order, p.id)?.weight < 300
-                            ? 300
-                            : findProductWithId(order, p.id)?.weight > 1000
-                            ? 1000
-                            : findProductWithId(order, p.id)?.weight
-                        }
-                      />{" "}
-                      grammes
-                    </label>
-                    {weight && (
+                    <label>Poids désiré </label>
+                    <select
+                      required
+                      name={p.id}
+                      value={weight}
+                      onChange={(e) => setProductWeight(e)}
+                    >
+                      <option value="">Selectionnez un poids</option>
+                      <option value={300}>300</option>
+                      <option value={350}>350</option>
+                      <option value={400}>400</option>
+                      <option value={450}>450</option>
+                      <option value={500}>500</option>
+                      <option value={550}>550</option>
+                      <option value={600}>600</option>
+                      <option value={650}>650</option>
+                      <option value={700}>700</option>
+                      <option value={750}>750</option>
+                      <option value={800}>800</option>
+                      <option value={850}>850</option>
+                      <option value={900}>900</option>
+                      <option value={950}>950</option>
+                      <option value={1000}>1000</option>
+                    </select>
+                    grammes
+                    {weight > 0 && (
                       <p>
                         Sous-Total :
                         {(price * (weight / 1000) * p.count).toFixed(2)}
@@ -148,7 +156,10 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
           <Button
             color="blue"
             size="large"
-            disabled={getCartAmount(cart).toFixed(2) === "0.00"}
+            disabled={
+              getCartAmount(cart).toFixed(2) === "0.00" ||
+              cart.some((item) => "weight" in item && !item.weight)
+            }
             onClick={() => setOpenPaymentModal(true)}
           >
             Commander

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header, Icon, Modal, Form, Button } from "semantic-ui-react";
 import { getCartAmount } from "../../../../utils/functions";
-import { $SERVER } from "../../../../_const/_const";
+import { $SERVER, collectHour } from "../../../../_const/_const";
 
 import "./paymentModal.css";
 
@@ -71,7 +71,7 @@ const PaymentModal = ({
         }
       };
       fetchData();
-      setError(null)
+      setError(null);
     }
   }, [openPaymentModal]);
 
@@ -111,10 +111,10 @@ const PaymentModal = ({
       );
       setLoading(false);
     } else {
-        setLoading(true)
-        newOrder.status="ACCEPTED";
-        newOrder.transaction= payload;
-        setNewOrder({...newOrder})
+      setLoading(true);
+      newOrder.status = "ACCEPTED";
+      newOrder.transaction = payload;
+      setNewOrder({ ...newOrder });
       const createOrder = async () => {
         const response = await axios({
           method: "post",
@@ -138,10 +138,13 @@ const PaymentModal = ({
     }
   };
 
+  const date = new Date();
+  let date2 = date.toISOString().split("T")[0];
+  let d = new Date(date2);
+
   return (
     <Modal
       onClose={() => setOpenPaymentModal(false)}
-      onOpen={() => setOpenPaymentModal(true)}
       open={openPaymentModal}
       size="small"
     >
@@ -159,6 +162,32 @@ const PaymentModal = ({
             ? "Paiement en Cours"
             : "Payer Votre Commande"}
         </span>
+        <div
+          className={
+            succeeded
+              ? "result-message-container"
+              : "result-message-container hidden"
+          }
+        >
+          <p className={succeeded ? "result-message" : "result-message hidden"}>
+            Votre réservation est effectuée, vous pourrez recuperer votre
+            commande le{" "}
+              <span className="result-message-date">
+                {date.toLocaleString("fr-FR", { weekday: "long" }) !== "samedi"
+                  ? new Date(d.setDate(d.getDate() + 1))
+                      .toISOString()
+                      .split("T")[0]
+                  : new Date(d.setDate(d.getDate() + 2))
+                      .toISOString()
+                      .split("T")[0]}{" "}
+              </span>
+            à partir de{" "}
+            <span className="result-message-date"> {collectHour}</span>
+          </p>
+          <p className={succeeded ? "result-message" : "result-message hidden"}>
+            chez Piuma au 42 Cours Napoléon
+          </p>
+        </div>
       </Header>
       {!succeeded && (
         <Modal.Content>
@@ -197,10 +226,25 @@ const PaymentModal = ({
             </Form.Field>
             <Form.Field required>
               <label>Date de votre commande</label>
+              <span style={{ color: "black" }}>
+                Attention, votre commande ne sera disponible que demain
+              </span>
               <input
                 value={newOrder.date}
                 name="date"
                 type="date"
+                min={
+                  date.toLocaleString("fr-FR", { weekday: "long" }) !== "samedi"
+                    ? new Date(d.setDate(d.getDate()))
+                        .toISOString()
+                        .split("T")[0]
+                    : new Date(d.setDate(d.getDate() + 1))
+                        .toISOString()
+                        .split("T")[0]
+                }
+                max={
+                  new Date(d.setDate(d.getDate())).toISOString().split("T")[0]
+                }
                 onChange={(e) => changeOrder(e)}
               />
             </Form.Field>
@@ -246,7 +290,13 @@ const PaymentModal = ({
           </>
         ) : (
           <Link to="/categories/spuntinu">
-            <Button type="button" color="green" size="massive">
+            <Button
+              style={{ alignItems: "center" }}
+              type="button"
+              color="green"
+              size="massive"
+              onClick={() => setOpenPaymentModal(false)}
+            >
               Retour à la boutique
             </Button>
           </Link>
@@ -256,10 +306,6 @@ const PaymentModal = ({
             {error}
           </div>
         )}
-        {/* Show a success message upon completion */}
-        <p className={succeeded ? "result-message" : "result-message hidden"}>
-          Le paiement à réussi vous allez recevoir un email de confirmation
-        </p>
       </Modal.Actions>
     </Modal>
   );

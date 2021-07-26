@@ -8,7 +8,7 @@ import { Divider, Message, Transition } from "semantic-ui-react";
 import Cart from "../../pages/Cart";
 import Categories from "../../pages/Categories";
 import Home from "../../pages/Home";
-import { $SERVER, stripePublic } from "../../_const/_const";
+import { $SERVER, showShop, stripePublic } from "../../_const/_const";
 import AddEventModal from "../Medium/Modals/AddEvent";
 import AddProductModal from "../Medium/Modals/AddProduct";
 import EditProductModal from "../Medium/Modals/EditProduct";
@@ -212,25 +212,27 @@ const App = () => {
                 setSelectedProduct={setSelectedProduct}
               />
             </Route>
-            <Route path="/panier">
-              <Cart
-                setOpenPaymentModal={setOpenPaymentModal}
-                cart={cart}
-                setCart={setCart}
-                order={order}
-                setOrder={setOrder}
-              />
-              <Elements stripe={stripePromise}>
-                <PaymentModal
+            {showShop && (
+              <Route path="/panier">
+                <Cart
                   setOpenPaymentModal={setOpenPaymentModal}
-                  openPaymentModal={openPaymentModal}
-                  setOrder={setOrder}
-                  setCart={setCart}
                   cart={cart}
+                  setCart={setCart}
                   order={order}
+                  setOrder={setOrder}
                 />
-              </Elements>
-            </Route>
+                <Elements stripe={stripePromise}>
+                  <PaymentModal
+                    setOpenPaymentModal={setOpenPaymentModal}
+                    openPaymentModal={openPaymentModal}
+                    setOrder={setOrder}
+                    setCart={setCart}
+                    cart={cart}
+                    order={order}
+                  />
+                </Elements>
+              </Route>
+            )}
           </Switch>
           <Divider />
           <Copyright />

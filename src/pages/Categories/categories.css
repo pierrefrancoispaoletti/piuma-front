@@ -28,6 +28,7 @@
   flex-wrap: wrap;
   background-color: grey !important;
   border-radius: 12px;
+  margin-bottom: 12px !important;
 }
 
 .menu-items {
