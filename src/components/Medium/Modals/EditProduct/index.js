@@ -25,6 +25,7 @@ const EditProductModal = ({
     subCategory: p.subCategory,
     choice: p.choice,
     visible: p.visible,
+    showInShop: p.showInShop,
   });
 
   const [loading, setLoading] = useState(false);
@@ -176,7 +177,8 @@ const EditProductModal = ({
             )}
           </Form.Field>
           {(editedProduct.type === "cave" ||
-            editedProduct.type === "spuntinu"  || product.type === "epicerie") && (
+            editedProduct.type === "spuntinu" ||
+            product.type === "epicerie") && (
             <Form.Field required error={!editedProduct.category}>
               <label>Categorie de Produit</label>
               {categories.map(
@@ -209,6 +211,19 @@ const EditProductModal = ({
               }
             />
           </Form.Field>
+          <Form.Field>
+            <label>Shoppable ?</label>
+            <Radio
+              toggle
+              checked={editedProduct.showInShop}
+              onChange={() =>
+                setEditedProduct({
+                  ...editedProduct,
+                  showInShop: !editedProduct.showInShop,
+                })
+              }
+            />
+          </Form.Field>
         </Form>
       </Modal.Content>
       <Modal.Actions>
@@ -219,7 +234,8 @@ const EditProductModal = ({
             !editedProduct.price ||
             !editedProduct.type ||
             ((editedProduct.type === "cave" ||
-              editedProduct.type === "spuntinu" || product.type === "epicerie" ) &&
+              editedProduct.type === "spuntinu" ||
+              product.type === "epicerie") &&
               !editedProduct.category)
           }
           loading={loading}

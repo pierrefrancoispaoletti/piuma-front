@@ -24,6 +24,7 @@ const ProductItem = ({
   choice,
   visible,
   image,
+  showInShop,
   user,
   setOpenImageModal,
   setSelectedProduct,
@@ -31,6 +32,8 @@ const ProductItem = ({
   cart,
 }) => {
   const history = useHistory();
+
+  console.log(product)
 
   const userLang = navigator.language || navigator.userLanguage;
 
@@ -96,7 +99,7 @@ const ProductItem = ({
             />
           )}
         </Header>
-        {showShop && type === "spuntinu" && user !== "isAdmin" && (
+        {showShop && showInShop && (
           <Button
             className="addtocart"
             icon
@@ -110,8 +113,8 @@ const ProductItem = ({
             </span>
           </Button>
         )}
-        {/*         
-        {showShop && type === "spuntinu"  && user !== "isAdmin" && (
+                
+        {/* {showShop && type === "spuntinu"  && user !== "isAdmin" && (
           <Button
             className="removefromcart"
             icon

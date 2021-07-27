@@ -25,6 +25,7 @@ const AddProductModal = ({
     choice: false,
     visible: true,
     image: "",
+    showInShop: false
   });
 
   const [loading, setLoading] = useState(false);
@@ -86,6 +87,7 @@ const AddProductModal = ({
     formData.append("choice", product.choice || false);
     formData.append("visible", product.visible || true);
     formData.append("image", product.image || "");
+    formData.append("showInShop", product.showInShop || false);
     if (token) {
       setLoading(true);
       axios({
@@ -111,6 +113,7 @@ const AddProductModal = ({
               choice: false,
               visible: true,
               image: "",
+              showInShop: false,
             });
           }
           setAppMessage({
@@ -231,6 +234,16 @@ const AddProductModal = ({
               checked={product.choice}
               onChange={() =>
                 setProduct({ ...product, choice: !product.choice })
+              }
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Shoppable ?</label>
+            <Radio
+              toggle
+              checked={product.showInShop}
+              onChange={() =>
+                setProduct({ ...product, showInShop: !product.showInShop })
               }
             />
           </Form.Field>
