@@ -138,7 +138,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
                     name={p.id}
                     value={infos}
                     onChange={(e) => setComplementaryInfos(e)}
-                    placeholder="Infos complémentaires sur le produit que vous desirez, Exemple: Cannistrellis sucrés noisette...."
+                    placeholder="Infos complémentaires Exemple: Cannistrellis sucrés noisette, ribella misticu..."
                   />
                 </div>
               )}
