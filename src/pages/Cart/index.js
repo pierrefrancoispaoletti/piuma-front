@@ -1,15 +1,7 @@
 import { faMinus, faPlus } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
-import {
-  Button,
-  Container,
-  Divider,
-  Form,
-  Header,
-  Input,
-  TextArea,
-} from "semantic-ui-react";
+import { Button, Container, Divider, Header } from "semantic-ui-react";
 import {
   addToCart,
   calculateDate,

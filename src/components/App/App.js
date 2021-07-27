@@ -50,6 +50,8 @@ const App = () => {
 
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
+  const isAProductShoppable = products.some((product) => product.showInShop)
+
   useEffect(() => {
     if (Object.keys(appMessage).length !== 0) {
       setTimeout(() => {
@@ -132,6 +134,7 @@ const App = () => {
             user={user}
             setSidebarVisible={setSidebarVisible}
             setOpenLoginModal={setOpenLoginModal}
+            isAProductShoppable={isAProductShoppable}
           />
           <Divider hidden />
           <Login
@@ -212,7 +215,7 @@ const App = () => {
                 setSelectedProduct={setSelectedProduct}
               />
             </Route>
-            {showShop && (
+            {showShop && isAProductShoppable && (
               <Route path="/panier">
                 <Cart
                   setOpenPaymentModal={setOpenPaymentModal}

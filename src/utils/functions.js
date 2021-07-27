@@ -19,7 +19,6 @@ export const addToCart = (setCart, CurrentCart = [], currentProduct = {}) => {
 
 export const removeFromCart = (setCart, CurrentCart = [], productId = "") => {
   let index = CurrentCart.findIndex((p) => p._id === productId);
-  console.log(CurrentCart, "currentCart", index);
   let newCart = [...CurrentCart];
   newCart.splice(index, 1);
   setCart([...newCart]);

@@ -18,7 +18,7 @@ const TopAppBar = ({
   user,
   loading,
   cart,
-  setCart,
+  isAProductShoppable
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -49,7 +49,7 @@ const TopAppBar = ({
         >
           <FontAwesomeIcon size="2x" icon={faBars} />
         </Button>
-        {showShop && (
+        {showShop && isAProductShoppable  && (
           <Link to="/panier">
             <Button
               disabled={loading}
