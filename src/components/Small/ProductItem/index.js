@@ -33,8 +33,6 @@ const ProductItem = ({
 }) => {
   const history = useHistory();
 
-  console.log(product)
-
   const userLang = navigator.language || navigator.userLanguage;
 
   const cacheProvider = {

@@ -1,7 +1,15 @@
 import { faMinus, faPlus } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
-import { Button, Container, Divider, Header } from "semantic-ui-react";
+import {
+  Button,
+  Container,
+  Divider,
+  Form,
+  Header,
+  Input,
+  TextArea,
+} from "semantic-ui-react";
 import {
   addToCart,
   calculateDate,
@@ -41,6 +49,19 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
     setOrder([...newOrder]);
   };
 
+  const setComplementaryInfos = (e) => {
+    let foundProductObject = order.find((p) => p._id === e.target.name);
+    foundProductObject["infos"] = e.target.value;
+
+    let index = order.findIndex((i) => i._id === e.target.name);
+
+    let newOrder = [...order];
+
+    newOrder[index] = foundProductObject;
+
+    setOrder([...newOrder]);
+  };
+
   const getTheDay = () => {
     let date = new Date(calculateDate());
 
@@ -54,8 +75,6 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
       </span>
     );
   };
-
-  getTheDay();
   return (
     <Container className="cart">
       <Header className="categories-header" style={{ color: "white" }} as="h2">
@@ -74,6 +93,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
             </span>
           </div>
           <Button
+            type="button"
             color="blue"
             size="large"
             disabled={
@@ -90,7 +110,8 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
         </div>
         {r.map((p) => {
           const product = findProductWithId(cart, p.id);
-          const { name, _id, price, description, region, weight } = product;
+          const { name, _id, price, description, region, weight, infos } =
+            product;
           return (
             <div className="cart-product">
               <div className="cart-product-title">{name}</div>
@@ -118,6 +139,15 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
               {description && (
                 <div className="cart-product-description">
                   <p>{description}</p>
+                  <textarea
+                    style={{ width: "100%" }}
+                    cols="5"
+                    rows="3"
+                    name={p.id}
+                    value={infos}
+                    onChange={(e) => setComplementaryInfos(e)}
+                    placeholder="Infos complémentaires sur le produit que vous desirez, Exemple: Cannistrellis sucrés noisette...."
+                  />
                 </div>
               )}
               <div className="cart-product-unitprice">
@@ -171,6 +201,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
             </div>
           );
         })}
+        <div></div>
         <div className="cart-header">
           <div className="cart-total">
             <span>
@@ -178,6 +209,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
             </span>
           </div>
           <Button
+            type="button"
             color="blue"
             size="large"
             disabled={
