@@ -4,10 +4,12 @@ import React, { useEffect } from "react";
 import { Button, Container, Divider, Header } from "semantic-ui-react";
 import {
   addToCart,
+  calculateDate,
   findProductWithId,
   getCartAmount,
   removeFromCart,
 } from "../../utils/functions";
+import { collectHour } from "../../_const/_const";
 
 import "./cart.css";
 
@@ -28,7 +30,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
   const setProductWeight = (e) => {
     let foundProductObject = order.find((p) => p._id === e.target.name);
 
-    foundProductObject["weight"] = Number(e.target.value) || 0;
+    foundProductObject["weight"] = Number(e.target.value);
 
     let index = order.findIndex((i) => i._id === e.target.name);
 
@@ -39,12 +41,31 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
     setOrder([...newOrder]);
   };
 
+  const getTheDay = () => {
+    let date = new Date(calculateDate());
+
+    let day = date.toLocaleString("fr-FR", { weekday: "long" });
+
+    let dday = date.getDate();
+
+    return (
+      <span className="day">
+        {day} {dday} à {collectHour}
+      </span>
+    );
+  };
+
+  getTheDay();
   return (
     <Container className="cart">
       <Header className="categories-header" style={{ color: "white" }} as="h2">
         <span style={{ textDecoration: "underline" }}>Votre Panier</span>
       </Header>
-      <Divider hidden />
+      <div className="cart-pickupdate">
+        <p>Votre commande sera préte pour le {getTheDay()}</p>
+      </div>
+
+      <Divider />
       <div className="cart-description">
         <div className="cart-header">
           <div className="cart-total">
@@ -57,7 +78,10 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
             size="large"
             disabled={
               getCartAmount(cart).toFixed(2) === "0.00" ||
-              cart.some((item) => "weight" in item && !item.weight)
+              cart.some(
+                (item) =>
+                  item.region.toLowerCase() === "au kilo" && !item.weight
+              )
             }
             onClick={() => setOpenPaymentModal(true)}
           >
@@ -108,7 +132,7 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
                     <select
                       required
                       name={p.id}
-                      value={weight}
+                      value={"" || weight}
                       onChange={(e) => setProductWeight(e)}
                     >
                       <option value="">Selectionnez un poids</option>
@@ -158,7 +182,10 @@ const Cart = ({ cart, setCart, order, setOrder, setOpenPaymentModal }) => {
             size="large"
             disabled={
               getCartAmount(cart).toFixed(2) === "0.00" ||
-              cart.some((item) => "weight" in item && !item.weight)
+              cart.some(
+                (item) =>
+                  item.region.toLowerCase() === "au kilo" && !item.weight
+              )
             }
             onClick={() => setOpenPaymentModal(true)}
           >

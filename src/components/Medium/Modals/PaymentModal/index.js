@@ -2,8 +2,8 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Header, Icon, Modal, Form, Button } from "semantic-ui-react";
-import { getCartAmount } from "../../../../utils/functions";
+import { Header, Icon, Modal, Form, Button, Message } from "semantic-ui-react";
+import { calculateDate, getCartAmount } from "../../../../utils/functions";
 import { $SERVER, collectHour } from "../../../../_const/_const";
 
 import "./paymentModal.css";
@@ -114,6 +114,7 @@ const PaymentModal = ({
       setLoading(true);
       newOrder.status = "ACCEPTED";
       newOrder.transaction = payload;
+      newOrder.date = calculateDate();
       setNewOrder({ ...newOrder });
       const createOrder = async () => {
         const response = await axios({
@@ -138,10 +139,6 @@ const PaymentModal = ({
     }
   };
 
-  const date = new Date();
-  let date2 = date.toISOString().split("T")[0];
-  let d = new Date(date2);
-
   return (
     <Modal
       onClose={() => setOpenPaymentModal(false)}
@@ -162,6 +159,11 @@ const PaymentModal = ({
             ? "Paiement en Cours"
             : "Payer Votre Commande"}
         </span>
+        <Message
+          warning
+          header="ATTENTION !"
+          content="Les commandes sont traitées en 24h , vous pourrez recuperer votre commande dés demain !"
+        />
         <div
           className={
             succeeded
@@ -172,16 +174,8 @@ const PaymentModal = ({
           <p className={succeeded ? "result-message" : "result-message hidden"}>
             Votre réservation est effectuée, vous pourrez recuperer votre
             commande le{" "}
-              <span className="result-message-date">
-                {date.toLocaleString("fr-FR", { weekday: "long" }) !== "samedi"
-                  ? new Date(d.setDate(d.getDate() + 1))
-                      .toISOString()
-                      .split("T")[0]
-                  : new Date(d.setDate(d.getDate() + 2))
-                      .toISOString()
-                      .split("T")[0]}{" "}
-              </span>
-            à partir de{" "}
+            <span className="result-message-date">{calculateDate()} </span>à
+            partir de{" "}
             <span className="result-message-date"> {collectHour}</span>
           </p>
           <p className={succeeded ? "result-message" : "result-message hidden"}>
@@ -224,30 +218,6 @@ const PaymentModal = ({
                 onChange={(e) => changeOrder(e)}
               />
             </Form.Field>
-            <Form.Field required>
-              <label>Date de votre commande</label>
-              <span style={{ color: "black" }}>
-                Attention, votre commande ne sera disponible que demain
-              </span>
-              <input
-                value={newOrder.date}
-                name="date"
-                type="date"
-                min={
-                  date.toLocaleString("fr-FR", { weekday: "long" }) !== "samedi"
-                    ? new Date(d.setDate(d.getDate()))
-                        .toISOString()
-                        .split("T")[0]
-                    : new Date(d.setDate(d.getDate() + 1))
-                        .toISOString()
-                        .split("T")[0]
-                }
-                max={
-                  new Date(d.setDate(d.getDate())).toISOString().split("T")[0]
-                }
-                onChange={(e) => changeOrder(e)}
-              />
-            </Form.Field>
             <CardElement
               id="card-element"
               options={cardStyle}
@@ -272,8 +242,7 @@ const PaymentModal = ({
                 !newOrder.name ||
                 !newOrder.email ||
                 !newOrder.items.length === 0 ||
-                !newOrder.tel ||
-                !newOrder.date
+                !newOrder.tel
               }
               loading={loading}
             >

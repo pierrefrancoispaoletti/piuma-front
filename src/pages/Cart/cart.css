@@ -93,3 +93,26 @@
   background: var(--backgroundColor);
   border-radius: 8px;
 }
+
+.cart-pickupdate {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 1.5em;
+  background-color: grey;
+}
+
+.cart-pickupdate p {
+  color: white;
+}
+
+.day {
+  text-transform: uppercase;
+  display: inline-block;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 3px;
+}
