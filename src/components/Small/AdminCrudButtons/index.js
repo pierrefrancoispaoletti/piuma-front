@@ -6,10 +6,12 @@ const AdminCrudButtons = ({
   visible,
   _id,
   choice,
+  showInShop,
   product,
   handleDeleteProduct,
   handleChangeChoice,
   handleChangeVisibility,
+  handleChangeShoppable,
   setSelectedProduct,
   setOpenEditProductModal,
   setOpenUpdateImageModal,
@@ -36,6 +38,15 @@ const AdminCrudButtons = ({
           setSelectedProduct(product);
           setOpenEditProductModal(true);
         }}
+      />
+      <Button
+        disabled={loading}
+        loading={loading}
+        circular
+        icon="shopping basket"
+        size="large"
+        color={showInShop ? "orange" : "grey"}
+        onClick={() => handleChangeShoppable(product)}
       />
       <Button
         disabled={loading}

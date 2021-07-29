@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Header, Icon, Modal, Form, Button, Message } from "semantic-ui-react";
 import { calculateDate, getCartAmount } from "../../../../utils/functions";
 import { $SERVER, collectHour } from "../../../../_const/_const";
-
 import "./paymentModal.css";
 
 const PaymentModal = ({
@@ -14,6 +13,7 @@ const PaymentModal = ({
   setOrder,
   order,
   setCart,
+  socket
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -33,6 +33,7 @@ const PaymentModal = ({
   const [succeeded, setSucceeded] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
+
 
   const cardStyle = {
     style: {
@@ -124,6 +125,11 @@ const PaymentModal = ({
         });
 
         if (response && response.data.status === 200) {
+          socket.emit("newOrder", response.data.order, (error) => {
+            if (error) {
+              alert(error);
+            }
+          });
           setLoading(false);
           setOrder([]);
           setNewOrder({});

@@ -153,6 +153,30 @@ const Categories = ({
     }
   };
 
+  const handleChangeShoppable = (product) => {
+    let { image, ...newProduct } = product;
+    newProduct.showInShop = !product.showInShop
+    if (token) {
+      setLoading(true);
+      axios({
+        method: "post",
+        url: `${$SERVER}/api/products/updateProduct`,
+        data: {
+          update: newProduct,
+          productId: product._id,
+        },
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((response) => setProducts(response.data.data))
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
+    } else {
+      setOpenLoginModal(true);
+    }
+  };
+
   const findNameByMenu = () => {
     const foundCategory = categories.filter((category) =>
       category?.subCategories?.find((subc) => subc.slug === activeMenu)
@@ -235,9 +259,11 @@ const Categories = ({
                   handleDeleteProduct={handleDeleteProduct}
                   handleChangeVisibility={handleChangeVisibility}
                   handleChangeChoice={handleChangeChoice}
+                  handleChangeShoppable={handleChangeShoppable}
                   setSelectedProduct={setSelectedProduct}
                   setOpenEditProductModal={setOpenEditProductModal}
                   setOpenUpdateImageModal={setOpenUpdateImageModal}
+                  
                 />
               )}
               <ProductItem

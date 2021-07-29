@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router";
-import { Divider, Message, Transition } from "semantic-ui-react";
+import { Button, Divider, Message, Transition } from "semantic-ui-react";
 import Cart from "../../pages/Cart";
 import Categories from "../../pages/Categories";
 import Home from "../../pages/Home";
@@ -21,7 +21,11 @@ import Copyright from "../Small/Copyright";
 import TopAppBar from "../Small/TopAppBar";
 import "./App.css";
 
+import io from "socket.io-client";
+import Orders from "../../pages/Orders";
+
 const stripePromise = loadStripe(stripePublic);
+let socket;
 
 const App = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -50,7 +54,11 @@ const App = () => {
 
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
-  const isAProductShoppable = products.some((product) => product.showInShop)
+  const isAProductShoppable = products.some((product) => product.showInShop);
+
+  useEffect(() => {
+    socket = io($SERVER);
+  }, [$SERVER]);
 
   useEffect(() => {
     if (Object.keys(appMessage).length !== 0) {
@@ -232,8 +240,14 @@ const App = () => {
                     setCart={setCart}
                     cart={cart}
                     order={order}
+                    socket={socket}
                   />
                 </Elements>
+              </Route>
+            )}
+            {socket && (
+              <Route path="/commandes">
+                <Orders socket={socket} />
               </Route>
             )}
           </Switch>
