@@ -23,6 +23,7 @@ import "./App.css";
 
 import io from "socket.io-client";
 import Orders from "../../pages/Orders";
+import Waiter from '../../pages/Waiter';
 
 const stripePromise = loadStripe(stripePublic);
 let socket;
@@ -55,6 +56,9 @@ const App = () => {
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
   const isAProductShoppable = products.some((product) => product.showInShop);
+
+  const tableNumber = window.location.pathname.replace("/","")
+
 
   useEffect(() => {
     socket = io($SERVER);
@@ -234,6 +238,7 @@ const App = () => {
                 />
                 <Elements stripe={stripePromise}>
                   <PaymentModal
+                    tableNumber={tableNumber}
                     setOpenPaymentModal={setOpenPaymentModal}
                     openPaymentModal={openPaymentModal}
                     setOrder={setOrder}
@@ -248,6 +253,11 @@ const App = () => {
             {socket && (
               <Route path="/commandes">
                 <Orders socket={socket} />
+              </Route>
+            )}
+            {socket && user && (
+              <Route path="/serveur">
+                <Waiter socket={socket} user={user} />
               </Route>
             )}
           </Switch>

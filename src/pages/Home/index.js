@@ -117,7 +117,7 @@ const Home = ({
   };
   return (
     <Container className="home">
-      {user && (
+      {user && user.role === "isAdmin" && (
         <div className="home-addbutton">
           {event && Object.keys(event).length === 0 && (
             <Button

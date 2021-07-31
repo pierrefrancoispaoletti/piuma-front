@@ -53,7 +53,7 @@ const ProductItem = ({
       id={_id}
       className="productitem"
       style={{
-        display: visible ? "" : user ? "" : "none",
+        display: visible ? "" : user.role === "isAdmin" ? "" : "none",
         border:
           decodeURI(history.location.hash.replace("#", "")) === _id
             ? "8px solid darkred"

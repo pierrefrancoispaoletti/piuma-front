@@ -189,7 +189,7 @@ const Categories = ({
 
   return (
     <Container className="categories">
-      {user && (
+      {user && user.role=== "isAdmin" && (
         <div>
           <Button
             color="green"
@@ -251,7 +251,7 @@ const Categories = ({
           .sort((a, b) => b.choice - a.choice)
           .map((p) => (
             <>
-              {user && (
+              {user && user.role ==="isAdmin" && (
                 <AdminCrudButtons
                   loading={loading}
                   {...p}

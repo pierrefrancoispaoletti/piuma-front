@@ -13,7 +13,8 @@ const PaymentModal = ({
   setOrder,
   order,
   setCart,
-  socket
+  socket,
+  tableNumber,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -21,6 +22,7 @@ const PaymentModal = ({
   const [newOrder, setNewOrder] = useState({
     name: "",
     email: "",
+    tableNumber: tableNumber,
     tel: "",
     date: "",
     items: [],
@@ -33,7 +35,6 @@ const PaymentModal = ({
   const [succeeded, setSucceeded] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
-
 
   const cardStyle = {
     style: {
@@ -56,6 +57,7 @@ const PaymentModal = ({
   useEffect(() => {
     setLoading(true);
     if (openPaymentModal) {
+      setNewOrder({ ...newOrder, tableNumber });
       const fetchData = async () => {
         const response = await axios({
           method: "post",
@@ -113,7 +115,7 @@ const PaymentModal = ({
       setLoading(false);
     } else {
       setLoading(true);
-      newOrder.status = "ACCEPTED";
+      newOrder.status = "PAID";
       newOrder.transaction = payload;
       newOrder.date = calculateDate();
       setNewOrder({ ...newOrder });
@@ -207,6 +209,15 @@ const PaymentModal = ({
               />
             </Form.Field>
             <Form.Field required>
+              <label>Numéro de table</label>
+              <input
+                value={newOrder.tableNumber}
+                name="tableNumber"
+                type="text"
+                onChange={(e) => changeOrder(e)}
+              />
+            </Form.Field>
+            <Form.Field required>
               <label>Votre Email</label>
               <input
                 value={newOrder.email}
@@ -247,6 +258,7 @@ const PaymentModal = ({
                 !stripe ||
                 !newOrder.name ||
                 !newOrder.email ||
+                !newOrder.tableNumber ||
                 !newOrder.items.length === 0 ||
                 !newOrder.tel
               }

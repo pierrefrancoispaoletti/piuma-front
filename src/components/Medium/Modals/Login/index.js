@@ -24,7 +24,7 @@ const Login = ({
       },
     })
       .then((response) => {
-        setUser(response.data.role);
+        setUser(response.data.user);
         setAppMessage({
           success: response.data.status === 200 ? true : false,
           message: response.data.message,

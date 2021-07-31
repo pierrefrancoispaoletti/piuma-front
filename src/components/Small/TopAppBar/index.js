@@ -22,6 +22,7 @@ const TopAppBar = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+
   return (
     <div className="topappbar">
       <Link to="/" onClick={() => setSelectedCategory({})}>
