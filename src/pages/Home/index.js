@@ -133,16 +133,6 @@ const Home = ({
           )}
           {event && Object.keys(event).length > 0 && (
             <>
-              {/* <Button
-                loading={loading}
-                disabled={loading}
-                color="purple"
-                circular
-                size="medium"
-                onClick={() => setOpenEditEventModal(true)}
-              >
-                <FontAwesomeIcon icon={faEdit} size="2x" />
-              </Button> */}
               <Button
                 loading={loading}
                 disabled={loading}
@@ -182,7 +172,7 @@ const Home = ({
                 })}`}
               </p>
             )}
-            <p>{event.description}</p>
+            <p style={{ whiteSpace: "break-spaces" }}>{event.description}</p>
             <div className="home-like-button">
               <Button
                 disabled={vote ? true : false}
@@ -246,7 +236,9 @@ const Home = ({
                     />
                     <HashLink
                       smooth
-                      to={`/categories/${findCategory(product.type).slug}#${product._id}`}
+                      to={`/categories/${findCategory(product.type).slug}#${
+                        product._id
+                      }`}
                       onClick={() => {
                         setSelectedCategory(findCategory(product.type));
                         setActiveMenu(product.category);

@@ -24,7 +24,7 @@ const Login = ({
       },
     })
       .then((response) => {
-        setUser(response.data.role);
+        setUser(response.data.user.role);
         setAppMessage({
           success: response.data.status === 200 ? true : false,
           message: response.data.message,
@@ -79,7 +79,7 @@ const Login = ({
           loading={loading}
           type="submit"
           form="auth-form"
-          disabled={email.length === 0 || password.length === 0 || loading}
+          disabled={email.length === 0 || password.length === 0 || loading}
           inverted
         >
           <Icon name="checkmark" /> Connexion
