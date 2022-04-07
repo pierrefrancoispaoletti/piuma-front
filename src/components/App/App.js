@@ -59,9 +59,9 @@ const App = () => {
 
   const tableNumber = window.location.pathname.replace("/", "");
 
-  useEffect(() => {
-    socket = io($SERVER);
-  }, [$SERVER]);
+  // useEffect(() => {
+  //   socket = io($SERVER);
+  // }, [$SERVER]);
 
   useEffect(() => {
     if (Object.keys(appMessage).length !== 0) {
@@ -249,7 +249,7 @@ const App = () => {
                 </Elements>
               </Route>
             )}
-            {socket && (
+            {/* {socket && (
               <Route path="/commandes">
                 <Orders socket={socket} />
               </Route>
@@ -260,7 +260,7 @@ const App = () => {
                 <Route path="/serveur">
                   <Waiter socket={socket} user={user} />
                 </Route>
-              )}
+              )} */}
           </Switch>
           <Divider />
           <Copyright />
