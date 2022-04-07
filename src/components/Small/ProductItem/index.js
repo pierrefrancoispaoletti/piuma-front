@@ -5,20 +5,23 @@ import {
 } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Translator, Translate } from "react-auto-translate";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Header } from "semantic-ui-react";
 import "./productitem.css";
 import { GOOGLE_API_KEY, showShop } from "../../../_const/_const";
 import { useHistory } from "react-router-dom";
 import { addToCart } from "../../../utils/functions";
+import Bandera from "./bandera.png";
 
 const ProductItem = ({
   product,
   _id,
   name,
+  nameCorsican,
   type,
   region,
   description,
+  descriptionCorsican,
   price,
   category,
   choice,
@@ -34,6 +37,8 @@ const ProductItem = ({
   const history = useHistory();
 
   const userLang = navigator.language || navigator.userLanguage;
+
+  const [isTranslatedInCorsican, setIsTranslatedInCorsican] = useState(false);
 
   const cacheProvider = {
     get: (language, key) =>
@@ -53,13 +58,34 @@ const ProductItem = ({
       id={_id}
       className="productitem"
       style={{
-        display: visible ? "" : user.role === "isAdmin" ? "" : "none",
+        display: visible ? "" : user === "isAdmin" ? "" : "none",
         border:
           decodeURI(history.location.hash.replace("#", "")) === _id
             ? "8px solid darkred"
             : "",
       }}
     >
+      {(nameCorsican || descriptionCorsican) && (
+        <Button
+          icon
+          circular
+          size="large"
+          style={{
+            position: "absolute",
+            top: "-42px",
+            left: "-20px",
+            padding: "6px",
+          }}
+          onClick={() => setIsTranslatedInCorsican(!isTranslatedInCorsican)}
+        >
+          <img
+            src={Bandera}
+            width="35px"
+            alt="bouton de traduction"
+            style={{ backgroundColor: "transparent" }}
+          />
+        </Button>
+      )}
       <div className="productitem-header">
         <Header
           as="h3"
@@ -74,7 +100,7 @@ const ProductItem = ({
           }
         >
           {!visible ? "Caché : " : ""}
-          {name}
+          {isTranslatedInCorsican && nameCorsican ? nameCorsican : name}
           {image && (
             <FontAwesomeIcon
               style={{ color: "white", marginLeft: 8 }}
@@ -153,9 +179,13 @@ const ProductItem = ({
           to={userLang.substr(0, 2)}
           googleApiKey={GOOGLE_API_KEY}
         >
-          <p className="description">
-            <Translate>{description}</Translate>
-          </p>
+          {isTranslatedInCorsican && descriptionCorsican ? (
+            <p className="description">{descriptionCorsican}</p>
+          ) : (
+            <p className="description">
+              <Translate>{description}</Translate>
+            </p>
+          )}
         </Translator>
       )}
     </div>

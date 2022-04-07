@@ -16,8 +16,10 @@ const AddProductModal = ({
 }) => {
   const [product, setProduct] = useState({
     name: "",
+    nameCorsican: "",
     region: "",
     description: "",
+    descriptionCorsican: "",
     price: "",
     type: "",
     category: "",
@@ -25,7 +27,7 @@ const AddProductModal = ({
     choice: false,
     visible: true,
     image: "",
-    showInShop: false
+    showInShop: false,
   });
 
   const [loading, setLoading] = useState(false);
@@ -79,6 +81,8 @@ const AddProductModal = ({
     let formData = new FormData();
     formData.append("name", product.name);
     formData.append("description", product.description || "");
+    formData.append("nameCorsican", product.nameCorsican);
+    formData.append("descriptionCorsican", product.descriptionCorsican || "");
     formData.append("region", product.region || "");
     formData.append("price", product.price);
     formData.append("type", product.type);
@@ -104,8 +108,10 @@ const AddProductModal = ({
             setProducts(response.data.data);
             setProduct({
               name: "",
+              nameCorsican: "",
               region: "",
               description: "",
+              descriptionCorsican: "",
               price: "",
               type: "",
               category: "",
@@ -161,10 +167,29 @@ const AddProductModal = ({
             />
           </Form.Field>
           <Form.Field>
+            <label>Nom du Produit en Corse</label>
+            <input
+              value={product.nameCorsican}
+              name="nameCorsican"
+              type="text"
+              onChange={(e) => changeProduct(e)}
+            />
+          </Form.Field>
+          <Form.Field>
             <label>Description</label>
             <textarea
               value={product.description}
               name="description"
+              rows="5"
+              cols="33"
+              onChange={(e) => changeProduct(e)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Description en Corse</label>
+            <textarea
+              value={product.descriptionCorsican}
+              name="descriptionCorsican"
               rows="5"
               cols="33"
               onChange={(e) => changeProduct(e)}
@@ -207,7 +232,9 @@ const AddProductModal = ({
                 )
             )}
           </Form.Field>
-          {(product.type === "cave" || product.type === "spuntinu"  || product.type === "epicerie") && (
+          {(product.type === "cave" ||
+            product.type === "spuntinu" ||
+            product.type === "epicerie") && (
             <Form.Field required error={!product.category}>
               <label>Categorie de Produit</label>
               {categories.map(
@@ -277,7 +304,9 @@ const AddProductModal = ({
             !product.name ||
             !product.price ||
             !product.type ||
-            ((product.type === "cave" || product.type === "spuntinu" || product.type === "epicerie") &&
+            ((product.type === "cave" ||
+              product.type === "spuntinu" ||
+              product.type === "epicerie") &&
               !product.category)
           }
           loading={loading}

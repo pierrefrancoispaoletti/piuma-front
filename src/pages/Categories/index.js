@@ -155,7 +155,7 @@ const Categories = ({
 
   const handleChangeShoppable = (product) => {
     let { image, ...newProduct } = product;
-    newProduct.showInShop = !product.showInShop
+    newProduct.showInShop = !product.showInShop;
     if (token) {
       setLoading(true);
       axios({
@@ -189,7 +189,7 @@ const Categories = ({
 
   return (
     <Container className="categories">
-      {user && user.role=== "isAdmin" && (
+      {user && user === "isAdmin" && (
         <div>
           <Button
             color="green"
@@ -201,13 +201,13 @@ const Categories = ({
           </Button>
         </div>
       )}
-      <Header
-        className="categories-header"
-        style={{ color: "white" }}
-        as="h2"
-      >
-        <span style={{textDecoration: "underline"}}>{name}</span>
-        {details && <p style={{ color: "black", fontSize:"0.5em", textDecoration: "" }}>{details}</p>}
+      <Header className="categories-header" style={{ color: "white" }} as="h2">
+        <span style={{ textDecoration: "underline" }}>{name}</span>
+        {details && (
+          <p style={{ color: "black", fontSize: "0.5em", textDecoration: "" }}>
+            {details}
+          </p>
+        )}
       </Header>
       {activeMenu && (
         <Header
@@ -251,7 +251,7 @@ const Categories = ({
           .sort((a, b) => b.choice - a.choice)
           .map((p) => (
             <>
-              {user && user.role ==="isAdmin" && (
+              {user && user === "isAdmin" && (
                 <AdminCrudButtons
                   loading={loading}
                   {...p}
@@ -263,7 +263,6 @@ const Categories = ({
                   setSelectedProduct={setSelectedProduct}
                   setOpenEditProductModal={setOpenEditProductModal}
                   setOpenUpdateImageModal={setOpenUpdateImageModal}
-                  
                 />
               )}
               <ProductItem

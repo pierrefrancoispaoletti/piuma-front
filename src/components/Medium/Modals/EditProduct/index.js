@@ -17,8 +17,10 @@ const EditProductModal = ({
 
   const [editedProduct, setEditedProduct] = useState({
     name: p.name,
+    nameCorsican: p.nameCorsican,
     region: p.region,
     description: p.description,
+    descriptionCorsican: p.descriptionCorsican,
     price: p.price,
     type: p.type,
     category: p.category,
@@ -130,10 +132,29 @@ const EditProductModal = ({
             />
           </Form.Field>
           <Form.Field>
+            <label>Nom du Produit en Corse</label>
+            <input
+              value={editedProduct.nameCorsican}
+              name="nameCorsican"
+              type="text"
+              onChange={(e) => changeProduct(e)}
+            />
+          </Form.Field>
+          <Form.Field>
             <label>Description</label>
             <textarea
               value={editedProduct.description}
               name="description"
+              rows="5"
+              cols="33"
+              onChange={(e) => changeProduct(e)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Description en Corse</label>
+            <textarea
+              value={editedProduct.descriptionCorsican}
+              name="descriptionCorsican"
               rows="5"
               cols="33"
               onChange={(e) => changeProduct(e)}

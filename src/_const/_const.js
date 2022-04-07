@@ -1,6 +1,10 @@
-export const $SERVER = "http://localhost:5000";
+export let $SERVER;
 
-// export const $SERVER = "https://inde-piuma.herokuapp.com";
+if (process.env.NODE_ENV !== "production") {
+  $SERVER = "http://localhost:5000";
+} else {
+  $SERVER = "https://inde-piuma.herokuapp.com";
+}
 
 export const GOOGLE_API_KEY = "AIzaSyAZaWwVgn5z9gNPy0cbweEVGUeWwva5GGM";
 
