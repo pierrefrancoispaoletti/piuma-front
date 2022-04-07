@@ -61,16 +61,11 @@ const UpdateImageModal = ({
         .then((response) => {
           if (response && response.data.status === 200) {
             setProducts(response.data.data);
-            setAppMessage({
-              success: response.data.status === 200 ? true : false,
-              message: response.data.message,
-            });
-          } else {
-            setAppMessage({
-              success: response.data.status === 200 ? true : false,
-              message: response.data.message,
-            });
           }
+          setAppMessage({
+            success: response.data.status === 200 ? true : false,
+            message: response.data.message,
+          });
         })
         .then(() => {
           setOpenUpdateImageModal(false);

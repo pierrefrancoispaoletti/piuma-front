@@ -111,7 +111,7 @@ const ProductItem = ({
             </span>
           </Button>
         )}
-                
+
         {/* {showShop && type === "spuntinu"  && user !== "isAdmin" && (
           <Button
             className="removefromcart"
@@ -125,7 +125,7 @@ const ProductItem = ({
         )} */}
         {type === "cave" && name.toLowerCase() !== "verre de vin" ? (
           <span className="price">
-            {price.toFixed(2) - 7}
+            {price.toFixed(2) - 10}
             <small>€</small>
           </span>
         ) : (

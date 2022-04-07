@@ -7,10 +7,9 @@ const Orders = ({ socket }) => {
   const [allOrders, setAllOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [barReady, setBarReady] = useState(false);
-  const [cuisineReady, setCuisineReady] = useState(false);
-
   const token = localStorage.getItem(`token-${tokenName}`);
+
+  const [selectedOrder, setSelectedOrder] = useState({});
 
   const getOrders = async () => {
     setLoading(true);
@@ -41,10 +40,26 @@ const Orders = ({ socket }) => {
 
     if (response && response.data.status === 200) {
       setLoading(false);
-      setBarReady(false);
-      setCuisineReady(false);
       const { foundOrder } = response.data;
       socket.emit("sendOrderToWaiter", foundOrder);
+    }
+  };
+
+  const validateOrder = async (id, e) => {
+    setSelectedOrder(await allOrders.find((order) => order._id === id));
+    if (selectedOrder) {
+      selectedOrder[e.target.name] = true;
+    }
+    if (selectedOrder) {
+      let index = allOrders.findIndex(
+        (order) => order._id === selectedOrder._id
+      );
+      let newAllOrders = [...allOrders];
+      newAllOrders.splice(index, 1);
+      socket.emit("validateOrder", selectedOrder);
+    }
+    if (selectedOrder.status === "PRÊTE") {
+      updateOrder({ status: selectedOrder.status }, selectedOrder._id);
     }
   };
 
@@ -54,47 +69,11 @@ const Orders = ({ socket }) => {
       if (allOrders) {
         setAllOrders((allOrders) => [newOrder, ...allOrders]);
       }
+      socket.on("orderReady", (res) => {
+        console.log(res);
+      });
     });
   }, []);
-
-  const validateBarOrder = (order) => {
-    let validatedOrder = { ...order };
-    setBarReady(true);
-    validatedOrder.status =
-      checkIfOrderItemContainsType(validatedOrder.items, "aujourd'hui") &&
-      !cuisineReady
-        ? "ATTENTE CUISINE"
-        : "PRÊTE";
-    let index = allOrders.findIndex((o) => o._id === order._id);
-    let newAllOrders = [...allOrders];
-    newAllOrders[index] = validatedOrder;
-    newAllOrders.splice(index, 1);
-    setAllOrders([validatedOrder, ...newAllOrders]);
-    if (validatedOrder.status === "PRÊTE") {
-      updateOrder({ status: validatedOrder.status }, validatedOrder._id);
-    }
-  };
-
-  const validateCuisineOrder = (order) => {
-    let validatedOrder = { ...order };
-    setCuisineReady(true);
-    validatedOrder.status =
-      checkIfOrderItemContainsType(validatedOrder.items, "cave") && !barReady
-        ? "ATTENTE BAR"
-        : "PRÊTE";
-    let index = allOrders.findIndex((o) => o._id === order._id);
-    let newAllOrders = [...allOrders];
-    newAllOrders[index] = validatedOrder;
-    newAllOrders.splice(index, 1);
-    setAllOrders([validatedOrder, ...newAllOrders]);
-    if (validatedOrder.status === "PRÊTE") {
-      updateOrder({ status: validatedOrder.status }, validatedOrder._id);
-    }
-  };
-
-  const checkIfOrderItemContainsType = (items, string) => {
-    return !!items.find((item) => item.type === string);
-  };
 
   const renderTableRows = () =>
     allOrders
@@ -104,13 +83,13 @@ const Orders = ({ socket }) => {
         return (
           <>
             <Table.Row positive={status === "PRÊTE"}>
-                <Table.Cell>
-              {status === "PAID" && (
+              <Table.Cell>
+                {status === "PAID" && (
                   <Label ribbon color="green">
                     New
                   </Label>
-              )}
-                </Table.Cell>
+                )}
+              </Table.Cell>
               <TableCell>{tableNumber}</TableCell>
               <TableCell>{date}</TableCell>
               <TableCell>
@@ -163,23 +142,35 @@ const Orders = ({ socket }) => {
                 {items.find((item) => item.type === "cave") && (
                   <>
                     <Button
-                      disabled={loading || status === "PRÊTE" || barReady}
+                      disabled={loading || status === "PRÊTE"}
+                      name="bar"
                       loading={loading}
                       type="button"
                       color="blue"
                       content="Bar Prêt"
-                      onClick={() => validateBarOrder(order)}
+                      onClick={() =>
+                        socket.emit("validateOrder", {
+                          id: order._id,
+                          field: "bar",
+                        })
+                      }
                     />
                   </>
                 )}
                 {items.find((item) => item.type === "aujourd'hui") && (
                   <Button
-                    disabled={loading || status === "PRÊTE" || cuisineReady}
+                    disabled={loading || status === "PRÊTE"}
                     loading={loading}
+                    name="cuisine"
                     type="button"
                     color="red"
                     content="Cuisine Prête"
-                    onClick={() => validateCuisineOrder(order)}
+                    onClick={() =>
+                      socket.emit("validateOrder", {
+                          id: order._id,
+                          field: "cuisine",
+                        })
+                    }
                   />
                 )}
               </TableCell>
@@ -191,7 +182,7 @@ const Orders = ({ socket }) => {
     <Table celled>
       <Table.Header>
         <Table.Row>
-        <Table.HeaderCell>New ?</Table.HeaderCell>
+          <Table.HeaderCell>New ?</Table.HeaderCell>
           <Table.HeaderCell>Table</Table.HeaderCell>
           <Table.HeaderCell>date</Table.HeaderCell>
           <Table.HeaderCell>Montant</Table.HeaderCell>

@@ -23,7 +23,7 @@ import "./App.css";
 
 import io from "socket.io-client";
 import Orders from "../../pages/Orders";
-import Waiter from '../../pages/Waiter';
+import Waiter from "../../pages/Waiter";
 
 const stripePromise = loadStripe(stripePublic);
 let socket;
@@ -57,8 +57,7 @@ const App = () => {
 
   const isAProductShoppable = products.some((product) => product.showInShop);
 
-  const tableNumber = window.location.pathname.replace("/","")
-
+  const tableNumber = window.location.pathname.replace("/", "");
 
   useEffect(() => {
     socket = io($SERVER);
@@ -255,11 +254,13 @@ const App = () => {
                 <Orders socket={socket} />
               </Route>
             )}
-            {socket && user && (
-              <Route path="/serveur">
-                <Waiter socket={socket} user={user} />
-              </Route>
-            )}
+            {socket &&
+              user &&
+              (user.role === "isAdmin" || user.role === "waiter") && (
+                <Route path="/serveur">
+                  <Waiter socket={socket} user={user} />
+                </Route>
+              )}
           </Switch>
           <Divider />
           <Copyright />
