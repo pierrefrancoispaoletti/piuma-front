@@ -21,9 +21,9 @@ import Copyright from "../Small/Copyright";
 import TopAppBar from "../Small/TopAppBar";
 import "./App.css";
 
-import io from "socket.io-client";
-import Orders from "../../pages/Orders";
-import Waiter from "../../pages/Waiter";
+// import io from "socket.io-client";
+// import Orders from "../../pages/Orders";
+// import Waiter from "../../pages/Waiter";
 
 const stripePromise = loadStripe(stripePublic);
 let socket;
