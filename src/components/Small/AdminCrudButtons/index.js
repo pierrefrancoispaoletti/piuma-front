@@ -39,7 +39,7 @@ const AdminCrudButtons = ({
           setOpenEditProductModal(true);
         }}
       />
-      <Button
+      {/* <Button
         disabled={loading}
         loading={loading}
         circular
@@ -47,7 +47,7 @@ const AdminCrudButtons = ({
         size="large"
         color={showInShop ? "orange" : "grey"}
         onClick={() => handleChangeShoppable(product)}
-      />
+      /> */}
       <Button
         disabled={loading}
         loading={loading}

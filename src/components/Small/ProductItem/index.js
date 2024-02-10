@@ -137,39 +137,20 @@ const ProductItem = ({
             </span>
           </Button>
         )}
-
-        {/* {showShop && type === "spuntinu"  && user !== "isAdmin" && (
-          <Button
-            className="removefromcart"
-            icon
-            circular
-            color="red"
-            onClick={() => removeFromCart(setCart, cart, _id)}
-          >
-            <FontAwesomeIcon size="2x" icon={faCartArrowDown} />
-          </Button>
-        )} */}
-        {type === "cave" && name.toLowerCase() !== "verre de vin" ? (
-          <span className="price">
-            {price.toFixed(2) - 10}
-            <small>€</small>
-          </span>
-        ) : (
-          <span className="price">
-            {price.toFixed(2)}
-            <small>€</small>
-          </span>
-        )}
+        <span className="price">
+          {price.toFixed(2)}
+          <small>€</small>
+        </span>
       </div>
       {region && (
         <div className="region-wrapper">
           <div className="region">{region}</div>
-          {type === "cave" && name.toLowerCase() !== "verre de vin" && (
+          {/* {type === "cave" && name.toLowerCase() !== "verre de vin" && (
             <span className="region">
               {`Sur place : ${price.toFixed(2)}`}
               <small>€</small>
             </span>
-          )}
+          )} */}
         </div>
       )}
       {description && (

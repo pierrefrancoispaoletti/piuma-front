@@ -1,6 +1,6 @@
 export let $SERVER;
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "development") {
   $SERVER = "http://localhost:5000";
 } else {
   $SERVER = "https://inde-piuma.herokuapp.com";

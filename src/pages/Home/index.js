@@ -214,7 +214,7 @@ const Home = ({
                 showThumbs={false}
                 infiniteLoop={true}
               >
-                {findProductsImages().map((product) => (
+                {findProductsImages()?.map((product) => (
                   <div>
                     {product.choice && (
                       <FontAwesomeIcon
@@ -236,8 +236,8 @@ const Home = ({
                     />
                     <HashLink
                       smooth
-                      to={`/categories/${findCategory(product.type).slug}#${
-                        product._id
+                      to={`/categories/${findCategory(product?.type)?.slug}#${
+                        product?._id
                       }`}
                       onClick={() => {
                         setSelectedCategory(findCategory(product.type));

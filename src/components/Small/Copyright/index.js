@@ -24,12 +24,11 @@ const Copyright = ({
       <div>
         <Header as="h3">Retrouvez nous sur : </Header>
       </div>
+      <div>
+        <Header as="h3">Ritruvate noi annanta : </Header>
+      </div>
       <div className="footer__icons">
-        <a
-          target="_blank"
-          href="fb://profile/104822281341917"
-          rel="noreferrer"
-        >
+        <a target="_blank" href="fb://profile/104822281341917" rel="noreferrer">
           <FontAwesomeIcon
             style={{
               color: "#3B5998",
@@ -57,6 +56,9 @@ const Copyright = ({
       <Divider />
       <div>
         <Header as="h3">Contactez nous ! </Header>
+      </div>
+      <div>
+        <Header as="h3">Cunttate Noi !</Header>
       </div>
       <div className="footer__icons">
         <a href={`mailto:cafe-rotisserie@piuma.corsica`}>

@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const categories = [
   {
-    name: "Aujourd'hui",
+    name: "Rôtisserie - Rustizzeria",
     slug: "aujourd'hui",
     icon: (
       <FontAwesomeIcon
@@ -32,7 +32,7 @@ const categories = [
     ),
   },
   {
-    name: "L'Épicerie",
+    name: "L'Épicerie -Buttega-",
     slug: "epicerie",
     icon: (
       <FontAwesomeIcon
@@ -46,7 +46,7 @@ const categories = [
     ),
     subCategories: [
       {
-        name: "Les Salés",
+        name: "Les Salés \n-  I Salati",
         slug: "salés-p",
         icon: (
           <FontAwesomeIcon
@@ -57,7 +57,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Petits Pots",
+        name: "Les Petits Pots - I Chjuci Bombuli",
         slug: "pots-p",
         icon: (
           <FontAwesomeIcon
@@ -68,7 +68,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Huiles et Vinaigres",
+        name: "Les Huiles et Vinaigres - I Olii I Aceti ",
         slug: "huile-et-vinaigres-p",
         icon: (
           <FontAwesomeIcon
@@ -79,7 +79,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Assaisonements",
+        name: "Les Assaisonements - I Cundimenti",
         slug: "assaisonements-p",
         icon: (
           <FontAwesomeIcon
@@ -90,7 +90,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Terrines",
+        name: "Les Terrines - I Terrine",
         slug: "terrines-p",
         icon: (
           <FontAwesomeIcon
@@ -101,7 +101,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Charcuteries",
+        name: "Les Charcuteries - A Robba Purcina",
         slug: "charcuteries-p",
         icon: (
           <FontAwesomeIcon
@@ -112,7 +112,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Fromages",
+        name: "Les Fromages - I Casgii",
         slug: "fromages-p",
         icon: (
           <FontAwesomeIcon
@@ -123,7 +123,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Douceurs",
+        name: "Les Douceurs - I Dolci",
         slug: "douceurs-p",
         icon: (
           <FontAwesomeIcon
@@ -135,91 +135,91 @@ const categories = [
       },
     ],
   },
+  // {
+  //   name: "Assiettes à composer",
+  //   slug: "spuntinu",
+  //   details: "À partir de 18h",
+  //   icon: (
+  //     <FontAwesomeIcon
+  //       size="4x"
+  //       icon={faPig}
+  //       style={{
+  //         "--fa-primary-color": "#AF2127",
+  //         "--fa-secondary-color": "grey",
+  //       }}
+  //     />
+  //   ),
+  //   subCategories: [
+  //     {
+  //       name: "Les Salés",
+  //       slug: "salés",
+  //       icon: (
+  //         <FontAwesomeIcon
+  //           size="3x"
+  //           icon={faFrenchFries}
+  //           style={{ "--fa-primary-color": "darkred" }}
+  //         />
+  //       ),
+  //     },
+  //     {
+  //       name: "Les Petits Pots",
+  //       slug: "pots",
+  //       icon: (
+  //         <FontAwesomeIcon
+  //           size="3x"
+  //           icon={faHatChef}
+  //           style={{ "--fa-primary-color": "darkred" }}
+  //         />
+  //       ),
+  //     },
+  //     {
+  //       name: "Les Terrines",
+  //       slug: "terrines",
+  //       icon: (
+  //         <FontAwesomeIcon
+  //           size="3x"
+  //           icon={faPig}
+  //           style={{ "--fa-primary-color": "darkred" }}
+  //         />
+  //       ),
+  //     },
+  //     {
+  //       name: "Les Charcuteries",
+  //       slug: "charcuteries",
+  //       icon: (
+  //         <FontAwesomeIcon
+  //           size="3x"
+  //           icon={faSausage}
+  //           style={{ "--fa-primary-color": "darkred" }}
+  //         />
+  //       ),
+  //     },
+  //     {
+  //       name: "Les Fromages",
+  //       slug: "fromages",
+  //       icon: (
+  //         <FontAwesomeIcon
+  //           size="3x"
+  //           icon={faCheese}
+  //           style={{ "--fa-primary-color": "darkred" }}
+  //         />
+  //       ),
+  //     },
+  //     {
+  //       name: "Les Douceurs",
+  //       slug: "douceurs",
+  //       icon: (
+  //         <FontAwesomeIcon
+  //           size="3x"
+  //           icon={faCookieBite}
+  //           style={{ "--fa-primary-color": "darkred" }}
+  //         />
+  //       ),
+  //     },
+  //   ],
+  // },
   {
-    name: "Assiettes à composer",
-    slug: "spuntinu",
-    details: "À partir de 18h",
-    icon: (
-      <FontAwesomeIcon
-        size="4x"
-        icon={faPig}
-        style={{
-          "--fa-primary-color": "#AF2127",
-          "--fa-secondary-color": "grey",
-        }}
-      />
-    ),
-    subCategories: [
-      {
-        name: "Les Salés",
-        slug: "salés",
-        icon: (
-          <FontAwesomeIcon
-            size="3x"
-            icon={faFrenchFries}
-            style={{ "--fa-primary-color": "darkred" }}
-          />
-        ),
-      },
-      {
-        name: "Les Petits Pots",
-        slug: "pots",
-        icon: (
-          <FontAwesomeIcon
-            size="3x"
-            icon={faHatChef}
-            style={{ "--fa-primary-color": "darkred" }}
-          />
-        ),
-      },
-      {
-        name: "Les Terrines",
-        slug: "terrines",
-        icon: (
-          <FontAwesomeIcon
-            size="3x"
-            icon={faPig}
-            style={{ "--fa-primary-color": "darkred" }}
-          />
-        ),
-      },
-      {
-        name: "Les Charcuteries",
-        slug: "charcuteries",
-        icon: (
-          <FontAwesomeIcon
-            size="3x"
-            icon={faSausage}
-            style={{ "--fa-primary-color": "darkred" }}
-          />
-        ),
-      },
-      {
-        name: "Les Fromages",
-        slug: "fromages",
-        icon: (
-          <FontAwesomeIcon
-            size="3x"
-            icon={faCheese}
-            style={{ "--fa-primary-color": "darkred" }}
-          />
-        ),
-      },
-      {
-        name: "Les Douceurs",
-        slug: "douceurs",
-        icon: (
-          <FontAwesomeIcon
-            size="3x"
-            icon={faCookieBite}
-            style={{ "--fa-primary-color": "darkred" }}
-          />
-        ),
-      },
-    ],
-  },
-  {
-    name: "La Cave",
+    name: "La Cave -Cantina à Vini-",
     slug: "cave",
     icon: (
       <FontAwesomeIcon
@@ -233,7 +233,7 @@ const categories = [
     ),
     subCategories: [
       {
-        name: "Vins Rouges",
+        name: "Vins Rouges - Rossi",
         slug: "rouges",
         icon: (
           <FontAwesomeIcon
@@ -244,7 +244,7 @@ const categories = [
         ),
       },
       {
-        name: "Vins Rosés",
+        name: "Vins Rosés - Rosulati",
         slug: "roses",
         icon: (
           <FontAwesomeIcon
@@ -255,7 +255,7 @@ const categories = [
         ),
       },
       {
-        name: "Vins Blancs",
+        name: "Vins Blancs - Bianchi",
         slug: "blancs",
         icon: (
           <FontAwesomeIcon
@@ -266,7 +266,7 @@ const categories = [
         ),
       },
       {
-        name: "Les Champagnes",
+        name: "Les Champagnes - Sciampagnu",
         slug: "champagnes",
         icon: (
           <FontAwesomeIcon
@@ -279,7 +279,7 @@ const categories = [
     ],
   },
   {
-    name: "Les Bières",
+    name: "Les Bières -Bieri-",
     slug: "bieres",
     icon: (
       <FontAwesomeIcon
@@ -293,7 +293,7 @@ const categories = [
     ),
   },
   {
-    name: "Les Softs",
+    name: "Les Softs -Senza Alcool-",
     slug: "softs",
     icon: (
       <FontAwesomeIcon
